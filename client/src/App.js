@@ -1,4 +1,5 @@
 import FindRecord from "./components/FindRecord";
+import MakeRecord from "./components/MakeRecord";
 
 
 
@@ -7,7 +8,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Welcome</h1>
-        <FindRecord />
+        <MakeRecord />
       </header>
     </div>
   );

@@ -40,20 +40,7 @@ const recordSchema = new Schema(
     }
 );
 
-const generateID=()=>{
-    let id = ''
-    for(let i = 0;i<8;i++)
-    {
-        const c = String.fromCharCode(65+Math.floor(Math.random()*26));
-        id+=c;
-    }
-    return id;
-}
 
 
-recordSchema.pre('save',function(next){
-    this._id = generateID();
-    next(); 
-});
 const Record = model('Record',recordSchema);
 module.exports = Record;

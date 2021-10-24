@@ -4,7 +4,9 @@
   "description": "Centralized Vaccination Repository and Information Viewer",
   "main": "server.js",
   "nodemonConfig": {
-    "ignore": ["client/*"]
+    "ignore": [
+      "client/*"
+    ]
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cloudinary": "^1.27.1",
+    "compression": "^1.7.4",
     "express": "^4.17.1",
     "mongoose": "^6.0.12",
     "nodemon": "^2.0.14"

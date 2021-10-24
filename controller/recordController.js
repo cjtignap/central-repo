@@ -3,11 +3,10 @@ const Record = require('../model/record');
 
 
 const record_insert = (req,res)=>{
-    console.log(req.body);
     const record = new Record(req.body);
-    
     record.save()
         .then((result)=>{
+            console.log(result);
             res.json(result);
         })
         .catch(err=>{
