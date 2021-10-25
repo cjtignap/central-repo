@@ -101,7 +101,7 @@ const MakeRecord = () => {
     return ( 
         <div>
             <h3>Insert a record</h3>
-            
+            {_id&&<h1>Gerated id : {_id}</h1>}
             {uploading&&<h3 style={{color:'red'}}>Uploading files...</h3>}
             <form onSubmit={insertRecord}>
                 <p>First name</p>
@@ -158,6 +158,7 @@ const MakeRecord = () => {
                 <br />
                 <button type='submit'>Submit</button>
             </form>
+            
         </div>
      );
 }
