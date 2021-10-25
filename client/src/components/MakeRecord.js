@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 const MakeRecord = () => {
     const [_id,setId] = useState('');
@@ -15,56 +15,57 @@ const MakeRecord = () => {
 
     const [idProof,setIdProof]=useState('');
     const [valid_id,setValidId]=useState('');
-
     const [uploading,setUploading]=useState(false);
-
+    const [count,setCount]=useState(0);
     const insertRecord = (e)=>{
-        const insertRecordCall = async()=>{
+        const asyncInsertRecord = async()=>{
             try{
-                const generatedID = generateID();
-                setId(generatedID);
-                if(_id){
-                    setUploading(true);
-                    const res = await fetch('/api/upload',{
-                        method:'POST',
-                        body:JSON.stringify({data:proofImage,id:_id+'_proof'}),
-                        headers:{
-                            'Content-Type':'application/json'
-                        }
-                    });
-                    const data =await res.json();
-                    setVaccineProof(data.public_id+"");
+                setUploading(true);
+                await fetch('/api/upload',{
+                    method:'POST',
+                    body:JSON.stringify({data:proofImage,id:vaccine_proof}),
+                    headers:{
+                        'Content-Type':'application/json'
+                    }
+                });
 
-                    const res2 = await fetch('/api/upload',{
-                        method:'POST',
-                        body:JSON.stringify({data:idProof,id:_id+'_id'}),
-                        headers:{
-                            'Content-Type':'application/json'
-                        }
-                    });
-                    const data2 =await res2.json();
-                    setValidId(data2.public_id+"");
-                    
+                 await fetch('/api/upload',{
+                    method:'POST',
+                    body:JSON.stringify({data:idProof,id:valid_id}),
+                    headers:{
+                        'Content-Type':'application/json'
+                    }
+                });
 
-                    await fetch('/api/records',{
-                        method:'POST',
-                        headers:{
-                            'Content-Type':'application/json'
-                        },
-                        body:JSON.stringify({first_name,last_name,city,vaccine_brand,vaccination_status,barangay,date,_id,vaccine_proof,valid_id})
-                    });
-                    setUploading(false);
-                }
-                
+                await fetch('/api/records',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({first_name,last_name,city,vaccine_brand,vaccination_status,barangay,date,_id,vaccine_proof,valid_id})
+                });
+                setUploading(false);
+                setCount(count+1);
             }
             catch(error){
-                console.log(error.message)
+                console.log(error);
             }
         }
-        insertRecordCall();
+
+        asyncInsertRecord();
         e.preventDefault();
     }
+    useEffect(()=>{
+        const func = async()=>{
+            const generatedID = await generateID();
+            setId(generatedID);
+            setVaccineProof(generatedID+"_proof");
+            setValidId(generatedID+"_id");
+        }
+        func();
+    },[count]);
 
+    
     const handleImageSelect = (e)=>{
         const file = e.target.files[0];
         previewFile(file);

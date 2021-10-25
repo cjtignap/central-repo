@@ -69,7 +69,7 @@ const FindRecord = () => {
                                 <Transformation  width="300" height="300" />
                             </Image>
                         </p>}
-                        {valid_id&&<p><strong>Vax card</strong>
+                        {valid_id&&<p><strong>Valid ID card</strong>
                             <Image publicId = {valid_id} alt="valid-id" height="200px">
                                 <Transformation  width="300" height="300" />
                             </Image>

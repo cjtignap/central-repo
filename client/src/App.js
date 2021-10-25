@@ -1,15 +1,18 @@
 
 import VaccineRecords from "./components/VaccineRecords";
-
+import {BrowserRouter as Router } from "react-router-dom"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Welcome</h1>
-        <VaccineRecords />
+      <Router>
+        <header className="App-header">
+          <h1>Welcome</h1>
+          <VaccineRecords />
 
-      </header>
+        </header>
+      </Router>
+      
     </div>
   );
 }
