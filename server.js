@@ -15,11 +15,11 @@ app.use('/api/records',recordRoutes);
 
 app.use('/api/',apiRoutes);
 
-// app.use(express.static(path.join(__dirname,"client","build")));
+app.use(express.static(path.join(__dirname,"client","build")));
 
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-// });
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 mongoose.connect(dbUri,{useNewUrlParser:true,useUnifiedTopology:true})
 .then(res=>{app.listen(port,()=>{
     console.log("Listening to port : "+port);
