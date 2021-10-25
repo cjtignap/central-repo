@@ -24,9 +24,7 @@ const MakeRecord = () => {
                 const generatedID = generateID();
                 setId(generatedID);
                 if(_id){
-                    console.log(_id); 
-
-                    console.log('uploading vaccine proof');
+                    setUploading(true);
                     const res = await fetch('/api/upload',{
                         method:'POST',
                         body:JSON.stringify({data:proofImage,id:_id+'_proof'}),
@@ -35,9 +33,8 @@ const MakeRecord = () => {
                         }
                     });
                     const data =await res.json();
-                    setVaccineProof(data.public_id+"."+data.format);
+                    setVaccineProof(data.public_id+"");
 
-                    console.log('uploading valid id');
                     const res2 = await fetch('/api/upload',{
                         method:'POST',
                         body:JSON.stringify({data:idProof,id:_id+'_id'}),
@@ -46,7 +43,7 @@ const MakeRecord = () => {
                         }
                     });
                     const data2 =await res2.json();
-                    setValidId(data2.public_id+"."+data2.format);
+                    setValidId(data2.public_id+"");
                     
 
                     await fetch('/api/records',{
@@ -56,6 +53,7 @@ const MakeRecord = () => {
                         },
                         body:JSON.stringify({first_name,last_name,city,vaccine_brand,vaccination_status,barangay,date,_id,vaccine_proof,valid_id})
                     });
+                    setUploading(false);
                 }
                 
             }
@@ -103,6 +101,8 @@ const MakeRecord = () => {
     return ( 
         <div>
             <h3>Insert a record</h3>
+            
+            {uploading&&<h3 style={{color:'red'}}>Uploading files...</h3>}
             <form onSubmit={insertRecord}>
                 <p>First name</p>
                 <input type="text" value={first_name} 
@@ -146,14 +146,14 @@ const MakeRecord = () => {
                 {proofImage && <img 
                     src={proofImage}
                     alt="Vax card"
-                    style={{height:'300px'}}
+                    style={{height:'200px'}}
                 />   }
                 <p>Valid ID</p>
                 <input type='file' onChange={handleImageSelect2}/>
                 {idProof && <img 
                     src={idProof}
                     alt="Valid ID"
-                    style={{height:'300px'}}
+                    style={{height:'200px'}}
                 />   }
                 <br />
                 <button type='submit'>Submit</button>

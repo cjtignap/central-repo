@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react';
-
+import { Image,Transformation,CloudinaryContext } from 'cloudinary-react';
 const FindRecord = () => {
 
     const [id,setId] = useState('');
@@ -11,6 +11,8 @@ const FindRecord = () => {
     const [barangay,setBarangay]=useState('');
     const [date,setDate]=useState('');
     const [error,setError]=useState();
+    const [vaccine_proof,setVaccineProof]=useState('');
+    const [valid_id,setValidId]=useState('');
     
     const handleSearch = async()=>{
         if(!id){
@@ -34,6 +36,8 @@ const FindRecord = () => {
                     setBrand(data.vaccine_brand);
                     setBarangay(data.barangay);
                     setDate(data.date);
+                    setVaccineProof(data.vaccine_proof);
+                    setValidId(data.valid_id);
                 }
             }catch(err){
                 setError('Server error');
@@ -58,6 +62,21 @@ const FindRecord = () => {
                     <p><strong>status </strong> {vaccination_status}</p>
                     <p><strong>vaccine brand: </strong> {vaccine_brand}</p>
                     <p><strong>date of vaccination : </strong>{date}</p>
+                    
+                    <CloudinaryContext cloudName="SoftDevG2">
+                        {vaccine_proof && <p><strong>Vax card</strong>
+                            <Image publicId = {vaccine_proof} alt="vax-card" height="200px">
+                                <Transformation  width="300" height="300" />
+                            </Image>
+                        </p>}
+                        {valid_id&&<p><strong>Vax card</strong>
+                            <Image publicId = {valid_id} alt="valid-id" height="200px">
+                                <Transformation  width="300" height="300" />
+                            </Image>
+                        </p>}
+                        
+                    </CloudinaryContext>
+                    
                 </div> }
             </div>
         </div>

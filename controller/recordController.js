@@ -33,10 +33,3 @@ const record_get = async(req,res)=>{
 
 module.exports = {record_insert,record_get};
 
-// {vaccination_status:vax_status.FULLY_VACCINATED,
-//     city:'malolos city',
-//     barangay:'san pablo',
-//     vaccine_brand:'pfizer',
-//     vaccine_proof:'',
-//     valid_id:'',
-//     name:'Chris John'}

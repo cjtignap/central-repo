@@ -1,6 +1,5 @@
-import FindRecord from "./components/FindRecord";
-import MakeRecord from "./components/MakeRecord";
 
+import VaccineRecords from "./components/VaccineRecords";
 
 
 function App() {
@@ -8,7 +7,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Welcome</h1>
-        <MakeRecord />
+        <VaccineRecords />
+
       </header>
     </div>
   );
