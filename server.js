@@ -1,12 +1,14 @@
+
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const port =process.env.PORT|| 5000;
-const dbUri = process.env.DB_URI||"mongodb+srv://cjtignap:dubdrSxHRJ5NR2AN@project.d4qvv.mongodb.net/central-repo?retryWrites=true&w=majority";
+const dbUri = process.env.DB_URI;
 const recordRoutes = require('./routes/recordRoutes');
 const apiRoutes = require('./routes/apiRoutes');
 const path = require('path');
-require('dotenv').config();
 
 
 app.use(express.json({limit: '5mb'}));
