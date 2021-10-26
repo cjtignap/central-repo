@@ -1,5 +1,4 @@
 import { useState,useEffect } from "react";
-
 const MakeRecord = () => {
     const [_id,setId] = useState('');
     const [first_name,setFirstName] = useState('');
@@ -23,7 +22,7 @@ const MakeRecord = () => {
                 setUploading(true);
                 await fetch('/api/upload',{
                     method:'POST',
-                    body:JSON.stringify({data:proofImage,id:vaccine_proof}),
+                    body:JSON.stringify({data:proofImage,id:_id+"_proof"}),
                     headers:{
                         'Content-Type':'application/json'
                     }
@@ -31,7 +30,7 @@ const MakeRecord = () => {
 
                  await fetch('/api/upload',{
                     method:'POST',
-                    body:JSON.stringify({data:idProof,id:valid_id}),
+                    body:JSON.stringify({data:idProof,id:_id+"_id"}),
                     headers:{
                         'Content-Type':'application/json'
                     }
@@ -59,8 +58,8 @@ const MakeRecord = () => {
         const func = async()=>{
             const generatedID = await generateID();
             setId(generatedID);
-            setVaccineProof(generatedID+"_proof");
-            setValidId(generatedID+"_id");
+            setVaccineProof("central-repo/"+generatedID+"_proof");
+            setValidId("central-repo/"+generatedID+"_id");
         }
         func();
     },[count]);
