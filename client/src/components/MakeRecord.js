@@ -5,17 +5,18 @@ const MakeRecord = () => {
     const [last_name,setLastName] = useState('');
     const [city,setCity]=useState('');
     const [vaccine_brand,setBrand]=useState('');
-    const [vaccination_status,setVaxStatus]=useState('');
+    const [vaccination_status,setVaxStatus]=useState('Partial Vaccinatted');
     const [barangay,setBarangay]=useState('');
     const [date,setDate]=useState('');
-
+    const [province,setProvince]=useState('');
     const [proofImage,setproofImage]=useState('');
     const [vaccine_proof,setVaccineProof]=useState('');
-
+    const [success_id,setSuccessID]=useState('');
     const [idProof,setIdProof]=useState('');
     const [valid_id,setValidId]=useState('');
     const [uploading,setUploading]=useState(false);
     const [count,setCount]=useState(0);
+    const [error,setError]=useState('');
     const insertRecord = (e)=>{
         const asyncInsertRecord = async()=>{
             try{
@@ -35,19 +36,22 @@ const MakeRecord = () => {
                         'Content-Type':'application/json'
                     }
                 });
-
                 await fetch('/api/records',{
+                    
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'
                     },
-                    body:JSON.stringify({first_name,last_name,city,vaccine_brand,vaccination_status,barangay,date,_id,vaccine_proof,valid_id})
+                    body:JSON.stringify({first_name,last_name,province,city,vaccine_brand,vaccination_status,barangay,date,_id,vaccine_proof,valid_id})
                 });
                 setUploading(false);
+                setSuccessID(_id);
                 setCount(count+1);
+                setError('');
             }
             catch(error){
-                console.log(error);
+                setUploading(false);
+                setError('Oops upload failed, something gone wrong.')
             }
         }
 
@@ -56,10 +60,13 @@ const MakeRecord = () => {
     }
     useEffect(()=>{
         const func = async()=>{
+            let today = new Date().toISOString().slice(0, 10);
+            setDate(today);
             const generatedID = await generateID();
             setId(generatedID);
             setVaccineProof("central-repo/"+generatedID+"_proof");
             setValidId("central-repo/"+generatedID+"_id");
+                            
         }
         func();
     },[count]);
@@ -99,67 +106,141 @@ const MakeRecord = () => {
     }
 
     return ( 
-        <div>
-            <h3>Insert a record</h3>
-            {_id&&<h1>Gerated id : {_id}</h1>}
-            {uploading&&<h3 style={{color:'red'}}>Uploading files...</h3>}
+        <section className="contact-clean">
             <form onSubmit={insertRecord}>
-                <p>First name</p>
-                <input type="text" value={first_name} 
-                    onChange={(e)=>{
-                        setFirstName(e.target.value);
-                    }}
-                />
-                <p>Last name</p>
-                <input type="text" value={last_name}
-                 onChange={(e)=>{
-                    setLastName(e.target.value);
-                }}/>
-                <p>City</p>
-                <input type="text" value={city}
-                 onChange={(e)=>{
-                    setCity(e.target.value);
-                }}/>
-                <p>Barngay</p>
-                <input type="text" value={barangay}
-                 onChange={(e)=>{
-                    setBarangay(e.target.value);
-                }}/>
-                <p>Vaccination Status</p>
-                <input type="text" value={vaccination_status}
-                 onChange={(e)=>{
-                    setVaxStatus(e.target.value);
-                }}/>
-                <p>Brand </p>
-                <input type="text" value={vaccine_brand} 
-                 onChange={(e)=>{
-                    setBrand(e.target.value);
-                }}/>
-                <p>Date </p>
-                <input type="text" value={date} 
-                 onChange={(e)=>{
-                    setDate(e.target.value);
-                }}/>
+                {uploading&&<div class="alert alert-primary" role="alert">
+                    Uploading files...
+                </div>}
+                {error&&<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{error}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>}
+                <h2 className="text-center">Register</h2>
+                {success_id&&<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Upload Success! <br />Registered ID : <strong>{success_id}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>}
 
-                <p>Vaccination Card</p>
-                <input type='file' onChange={handleImageSelect}/>
-                {proofImage && <img 
-                    src={proofImage}
-                    alt="Vax card"
-                    style={{height:'200px'}}
-                />   }
-                <p>Valid ID</p>
-                <input type='file' onChange={handleImageSelect2}/>
-                {idProof && <img 
+                <div className="form-group">
+                    <input className="form-control" 
+                        type="text" 
+                        placeholder="Firstname"  
+                        value={first_name} 
+                        onChange={(e)=>{
+                            setFirstName(e.target.value);
+                        }}
+                        required
+                    />
+                    <input className="form-control" 
+                        type="text" 
+                        placeholder="Lastname" 
+                        value={last_name}
+                        onChange={(e)=>{
+                         setLastName(e.target.value);
+                        }}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <input className="form-control" 
+                        type="text" 
+                        placeholder="Province" 
+                        value={province}
+                        onChange={(e)=>{
+                           setProvince(e.target.value);
+                       }}
+                        required
+                    />
+                    <input className="form-control"
+                        type="text" 
+                        placeholder="City"   
+                        value={city}
+                        onChange={(e)=>{
+                           setCity(e.target.value);}}
+                        required
+                    />
+                    <input className="form-control" 
+                    type="text" 
+                    placeholder="Barangay" 
+                    value={barangay}
+                    onChange={(e)=>{
+                       setBarangay(e.target.value);
+                   }}
+                    required/>
+                </div>
+                <div className="form-group">
+                    <div className="form-check">
+                        <input className="form-check-input" 
+                        type="radio" 
+                        id="formCheck-1" 
+                        value="Fully Vaccinated"
+                        name="vax_status" 
+                        onChange={(e)=>{
+                            setVaxStatus(e.target.value);
+                        }}
+                        />
+                        <label className="form-check-label" htmlFor="formCheck-1">Fully Vacinated</label>
+                    </div>
+                    <div className="form-check">
+                        <input className="form-check-input" 
+                            type="radio" 
+                            id="formCheck-2" 
+                            name="vax_status" 
+                            value="Partial Vaccinated"
+                            onChange={(e)=>{
+                                setVaxStatus(e.target.value);
+                            }}
+                        />
+                        <label className="form-check-label" htmlFor="formCheck-1">Partial Vaccinated</label>
+                    </div>
+                    <br />
+                    <label>Vaccination Date</label>
+                    <input className="form-control" 
+                        type="date" 
+                        value={date}
+                        onChange={(e)=>{
+                            setDate(e.target.value);
+                        }}
+                    />
+                </div>
+                <div className="form-group">
+                    <input className="form-control" 
+                        type="text" 
+                        placeholder="Vaccine Brand"
+                        value={vaccine_brand}
+                        onChange={(e)=>{
+                            setBrand(e.target.value);
+                        }} 
+                        required/>
+                </div>
+                <div className="form-group">
+                    <label>Vaccine Proof</label>
+                    <input className="form-control-file" type="file" required onChange={handleImageSelect}/>
+                    {proofImage && <img 
+                        src={proofImage}
+                        alt="Vax card"
+                        style={{height:'200px'}}
+                    />   }
+                    <br />
+                    <label>Valid ID</label>
+                    <input className="form-control-file" type="file" required onChange={handleImageSelect2}/>
+                    {idProof && <img 
                     src={idProof}
                     alt="Valid ID"
                     style={{height:'200px'}}
                 />   }
-                <br />
-                <button type='submit'>Submit</button>
+                </div>
+                <div className="form-group">
+                    <button className="btn btn-primary" type="submit">send </button>
+                </div>
             </form>
-            
-        </div>
+        </section>
+
+        
      );
 }
  
