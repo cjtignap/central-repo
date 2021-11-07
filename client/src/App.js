@@ -5,6 +5,8 @@ import Home from "./components/Home";
 import MakeRecord from "./components/MakeRecord";
 import FindRecord from "./components/FindRecord";
 import {Route, Switch} from 'react-router-dom';
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -16,8 +18,14 @@ function App() {
             <Route exact path="/upload-record">
                 <MakeRecord />
             </Route>
-            <Route path="/find-record">
+            <Route exact path="/find-record">
                 <FindRecord />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <SignUp />
             </Route>
             <Route path="/find-record/:id">
                 <FindRecord />
@@ -25,6 +33,7 @@ function App() {
             <Route path="/">
               <Home />
             </Route>
+            
         </Switch>
         </div>
       </Router>

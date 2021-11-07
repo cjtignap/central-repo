@@ -12,7 +12,7 @@ const Nav = () => {
                 <ul className="navbar-nav mr-auto">
                 <li className="nav-item"><Link to="/upload-record" className="nav-link">Upload Record</Link></li>
                 <li className="nav-item"><Link to="/find-record" className="nav-link">Find Record</Link></li>
-                </ul><span className="navbar-text actions"> <a className="btn btn-light action-button" role="button" href="#">Log In</a></span>
+                </ul><span className="navbar-text actions"> <Link className="btn btn-light action-button" role="button" to="/login">Log In</Link></span>
             </div>
             </div>
         </nav>

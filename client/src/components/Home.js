@@ -1,12 +1,13 @@
 import logo from '../assets/img/logo.png'
-
+import {Link} from 'react-router-dom';
 const Home = () => {
+    
     return ( 
         <div>
           <div className="jumbotron">
             <h1>Centralized Vaccination Database</h1>
             <p>Make CoVID Vaccination Validation faster and hassle free by registering to our database.</p>
-            <p><a className="btn btn-primary" role="button">Register Now</a></p>
+            <p><Link className="btn btn-primary" role="button" to="/upload-record">Register Now</Link></p>
           </div>
           <section className="article-list">
             <div className="container">
