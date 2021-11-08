@@ -25,13 +25,14 @@ const Login = () => {
                         'Content-Type':'application/json'
                     }
                 });
-                dispatch(flipFlag());
-                history.push('/');
+                
                 const result = await request.json();
                 if(result.error){
                     setError(result.error);
                 }
                 else{
+                    dispatch(flipFlag());
+                    history.push('/');
                     setError('');
                 }
             }
