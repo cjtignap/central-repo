@@ -108,19 +108,19 @@ const MakeRecord = () => {
     return ( 
         <section className="contact-clean">
             <form onSubmit={insertRecord}>
-                {uploading&&<div class="alert alert-primary" role="alert">
+                {uploading&&<div className="alert alert-primary" role="alert">
                     Uploading files...
                 </div>}
-                {error&&<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {error&&<div className="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>{error}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>}
                 <h2 className="text-center">Register</h2>
-                {success_id&&<div class="alert alert-success alert-dismissible fade show" role="alert">
+                {success_id&&<div className="alert alert-success alert-dismissible fade show" role="alert">
                     Upload Success! <br />Registered ID : <strong>{success_id}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>}

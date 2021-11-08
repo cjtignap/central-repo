@@ -11,7 +11,7 @@ module.exports.login_post= async(req,res)=>{
         res.status(200).json({user:user._id});
     }
     catch(error){
-        res.status(400).json({error:error.message});
+        res.json({error:error.message});
     }
 }
 const createToken = (id)=>{
@@ -35,7 +35,7 @@ module.exports.signup_post=async(req,res)=>{
         if(error.errors.password.kind==='minlength'){
             res.status(400).json({error:"Password is too short."});
         }
-        res.status(400).json({error:error.message});
+        res.json({error:error.message});
     }
 }
 module.exports.logout_get=(req,res)=>{
@@ -43,3 +43,22 @@ module.exports.logout_get=(req,res)=>{
     res.redirect('/');
 }
 
+module.exports.is_loggedin=(req,res)=>{
+    const token = req.cookies.jwt;
+    if(token){
+        jwt.verify(token,process.env.JWT_SECRET,async(err,decodedToken)=>{
+            if(err){
+                res.cookie('jwt','',{maxAge:1});
+                res.json({username:''});
+            }
+            else{
+                let user = await User.findById(decodedToken.id);
+                res.json({username:user.username});  
+            }
+        });
+    }
+    else{
+        res.json({username:''});
+    }
+    
+}

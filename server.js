@@ -11,22 +11,18 @@ const apiRoutes = require('./routes/apiRoutes');
 const authRoutes = require('./routes/authRoutes');
 const path = require('path');
 
-
 app.use(express.json({limit: '5mb'}));
 
+app.use(cookieParser());  
 app.use('/api/records',recordRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/',apiRoutes);
 
-app.use(cookieParser());
+
+
 
 app.use(express.static(path.join(__dirname,"client","build")));
 
-app.get('/cookie',(req,res)=>{
-    console.log('Cookies',req.cookies);
-    res.cookie('jwt','SOME RANDOM SHIT');
-    res.send('COokies');
-});
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));

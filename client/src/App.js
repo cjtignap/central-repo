@@ -8,10 +8,15 @@ import {Route, Switch} from 'react-router-dom';
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 
+
+
 function App() {
+ 
+
   return (
     <div className="App"> 
       <Router>
+        
         <Nav />
         <div>
         <Switch>

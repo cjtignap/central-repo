@@ -54,7 +54,7 @@ const FindRecord = () => {
 
         <section className="contact-clean">
             <form onSubmit={handleSubmit} >
-            {error&&<div class="alert alert-danger" role="alert">
+            {error&&<div className="alert alert-danger" role="alert">
                 No record found!
             </div>}
             
