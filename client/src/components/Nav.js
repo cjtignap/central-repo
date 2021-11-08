@@ -49,11 +49,11 @@ const Nav = () => {
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item"><Link to="/upload-record" className="nav-link">Upload Record</Link></li>
                     <li className="nav-item"><Link to="/find-record" className="nav-link">Find Record</Link></li>
-                    <li className="nav-item"><a className="nav-link">{user.username}</a></li>
                 </ul>
                 
                 <span className="navbar-text actions">
                     {!user.username&&<Link className="btn btn-light action-button" role="button" to="/login">Log In</Link>}
+                    {user.username&&<a className="login" ><strong>{user.username}</strong></a>}
                     {user.username&&<a className="btn btn-light action-button" role="button" onClick={handleLogout} href="#">Log Out</a>}
                 </span>
 
