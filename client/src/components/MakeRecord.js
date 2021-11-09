@@ -299,7 +299,7 @@ const MakeRecord = () => {
                 
                 <div className="form-group">
                     <label>Vaccine Proof</label>
-                    <input className="form-control-file" type="file" required onChange={handleImageSelect}/>
+                    <input className="form-control-file" type="file" required onChange={handleImageSelect} accept="image/*"/>
                     {proofImage && <img 
                         src={proofImage}
                         alt="Vax card"
@@ -307,7 +307,7 @@ const MakeRecord = () => {
                     />   }
                     <br />
                     <label>Valid ID</label>
-                    <input className="form-control-file" type="file" required onChange={handleImageSelect2}/>
+                    <input className="form-control-file" type="file" required onChange={handleImageSelect2} accept="image/*"/>
                     {idProof && <img 
                     src={idProof}
                     alt="Valid ID"
