@@ -10,6 +10,9 @@ const recordSchema = new Schema(
         vaccination_status : {
             type:String
         },
+        region:{
+            type:String
+        },
         province:{
             type:String
         },

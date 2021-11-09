@@ -18,7 +18,7 @@ function App() {
       <Router>
         
         <Nav />
-        <div>
+        
         <Switch>
             <Route exact path="/upload-record">
                 <MakeRecord />
@@ -40,7 +40,7 @@ function App() {
             </Route>
             
         </Switch>
-        </div>
+        
       </Router>
       
     </div>

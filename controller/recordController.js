@@ -4,7 +4,6 @@ const Record = require('../model/record');
 
 const record_insert = (req,res)=>{
     const record = new Record(req.body);
-    console.log(record);
     record.save()
         .then((result)=>{
             res.json(result);
