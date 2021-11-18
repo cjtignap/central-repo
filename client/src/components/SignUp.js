@@ -1,12 +1,17 @@
 import {Link} from 'react-router-dom';
 import logo300 from '../assets/img/logo300.png';
-import {useState} from 'react';
+import Select from 'react-select';
+import {useState,useEffect} from 'react';
 const SignUp = () => {
     const [username,setUsername]=useState('');
     const [password,setPassword]=useState('');
     const [password2,setPassword2]=useState('');
+    const [type,setType]=useState('local');
     const [error,setError]=useState('');
     const [success,setSuccess]=useState(false);
+    useEffect(()=>{
+        console.log(type);
+    },[]);
     const handleSubmit = async(e)=>{
         e.preventDefault();
         if(!(password===password2)){
@@ -16,7 +21,7 @@ const SignUp = () => {
         else{
             const request = await fetch('/api/auth/signup',{
                 method:'POST',
-                body:JSON.stringify({username,password}),
+                body:JSON.stringify({username,password,type}),
                 headers:{
                     'Content-Type':'application/json'
                 }
@@ -79,6 +84,15 @@ const SignUp = () => {
                     }}
                 />
             </div>
+            <Select 
+                isSearchable='false'
+                placeholder='Select Account Type'
+                onChange={e=>{setType(e.value)}}
+                options={[
+                    {value:'local',label:'Local'},
+                    {value:'national',label:'National'}
+                ]}
+            />
             <div className="form-group"><button className="btn btn-primary btn-block" type="submit" style={{background: '#2bb673'}}>Sign Up</button></div>
             <Link className="forgot" to="/login">Already have an account? Login here</Link>
         </form>

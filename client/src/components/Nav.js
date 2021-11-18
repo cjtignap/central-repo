@@ -47,6 +47,8 @@ const Nav = () => {
             </button>
             <div className="collapse navbar-collapse" id="navcol-1">
                 <ul className="navbar-nav mr-auto">
+                    
+                    {user.type==='national'&&<li className="nav-item"><Link to="/create-post" className="nav-link">Create Post</Link></li>}
                     <li className="nav-item"><Link to="/upload-record" className="nav-link">Upload Record</Link></li>
                     <li className="nav-item"><Link to="/find-record" className="nav-link">Find Record</Link></li>
                 </ul>

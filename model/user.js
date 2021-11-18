@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const {Schema,mode}=mongoose;
+const {Schema}=mongoose;
 const bcrypt = require('bcrypt');
 const userSchema = new Schema({
     username:{
@@ -13,6 +13,11 @@ const userSchema = new Schema({
         type:String,
         required:[true,'Please enter a password'],
         minlength:[8,'Minimum password length is 8 characters']
+    },
+    type:{
+        type:String,
+        required:true,
+        lowercase:true
     }
 
 });

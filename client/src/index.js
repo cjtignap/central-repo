@@ -8,6 +8,7 @@ import './assets/css/Contact-Form-Clean.css';
 import './assets/css/Navigation-Clean.css';
 import './assets/css/Navigation-with-Button.css';
 import './assets/css/Login-Form-Clean.css';
+import './assets/css/Article-Clean.css';
 import './assets/css/styles.css';
 
 import App from './App';

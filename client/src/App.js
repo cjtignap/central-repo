@@ -7,6 +7,8 @@ import FindRecord from "./components/FindRecord";
 import {Route, Switch} from 'react-router-dom';
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import CreatePost from "./components/CreatePost";
+import Article from "./components/Article";
 
 
 
@@ -34,6 +36,12 @@ function App() {
             </Route>
             <Route path="/find-record/:id">
                 <FindRecord />
+            </Route>
+            <Route exact path="/create-post">
+              <CreatePost />
+            </Route>
+            <Route path="/article/:id">
+              <Article />
             </Route>
             <Route path="/">
               <Home />

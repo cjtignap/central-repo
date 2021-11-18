@@ -1,8 +1,18 @@
 import logo from '../assets/img/logo.png'
 import {Link} from 'react-router-dom';  
-
+import {useEffect,useState} from 'react';
+import { Image,Transform,CloudinaryContext } from 'cloudinary-react';
 const Home = () => {
-
+  const [posts,setPosts]=useState([]);
+  useEffect(()=>{
+    const fetchPosts = async()=>{
+      const res = await fetch('/api/articles/get-three');
+      const jsonresult = await res.json();
+      setPosts(jsonresult);
+      
+    }
+    fetchPosts();
+  },[]);
     return ( 
         <div>
           <div className="jumbotron">
@@ -16,23 +26,33 @@ const Home = () => {
                 <h2 className="text-center">Latest Articles</h2>
                 <p className="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae. </p>
               </div>
+
+              {posts&&
+              
               <div className="row articles">
-                <div className="col-sm-6 col-md-4 item"><a href="#"><img className="img-fluid" src={logo} /></a>
-                  <h3 className="name">Article Title</h3>
-                  <p className="description">Aenean tortor est, vulputate quis leo in, veraesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p>
-                  <a className="action" href="#"><i className="fa fa-arrow-circle-right" /></a>
-                </div>
-                <div className="col-sm-6 col-md-4 item"><a href="#"><img className="img-fluid" src={logo} /></a>
-                  <h3 className="name">Article Title</h3>
-                  <p className="description">Aenean tortor est, vulputate quis leo icus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p>
-                  <a className="action" href="#"><i className="fa fa-arrow-circle-right" /></a>
-                </div>
-                <div className="col-sm-6 col-md-4 item"><a href="#"><img className="img-fluid" src={logo} /></a>
-                  <h3 className="name">Article Title</h3>
-                  <p className="description">Aenean tortor est, vulputat rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p>
-                  <a className="action" href="#"><i className="fa fa-arrow-circle-right" /></a>
-                </div>
-              </div>
+                {posts.map((post)=>{
+                  return(
+                    <div className="col-sm-6 col-md-4 item" key={post._id}>
+                      <Link to={'article/'+post._id}>
+                      {post.image!==''&&
+                        <CloudinaryContext cloudName="SoftDevG2">
+                          <Image publicId = {post.image} alt="vax-card"  className="img-fluid rounded" loading="lazy"/>
+                        </CloudinaryContext> 
+                      }
+                      
+                      {post.image===''&&<img className="img-fluid" src={logo} style={{heigth:'150px'}}/>}
+                        
+                        </Link>
+                      <h3 className="name">{post.title}</h3>
+                      <p className="description">
+                        {post.body.length>130?post.body.substring(0,130)+'...':post.body}
+                      </p>
+                      
+                    </div>
+                  );
+                  
+                })}
+              </div>} 
             </div>
           </section>
         </div>
