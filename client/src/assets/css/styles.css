@@ -27,13 +27,12 @@
 
 .li-article-image-container{
     width:100%; 
-    max-height:auto;
+    max-height:100%;
     padding:auto;
 }
 
 
 .li-article-image{
-    margin:auto;
     max-height:100%;
     max-width:100%;
 }
@@ -42,4 +41,17 @@
     float:right;
     color:#5d6e5f;
     margin-right:15px;
+}
+@media only screen and (max-width: 400px) {
+    .li-article{
+        display:flex;
+        flex-direction: column;
+    }
+    .li-article-image-container{
+        max-height:300px;
+        padding:auto;
+    }
+    .li-article-image{
+        max-height:250px;
+    }
 }

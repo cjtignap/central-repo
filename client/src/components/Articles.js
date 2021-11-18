@@ -20,8 +20,8 @@ const Articles = () => {
 
             const res = await fetch('/api/articles/page/'+currentPage);
             const resArray =await res.json();
-            console.log(resArray);
             setArticles(resArray);
+            window.scrollTo(0, 0);
             if(resArray.length>0){
                 const res2 = await fetch('/api/articles/page/'+nextPage);
                 const res2Array = await res2.json();
