@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import CreatePost from "./components/CreatePost";
 import Article from "./components/Article";
+import Articles from "./components/Articles";
 
 
 
@@ -40,9 +41,13 @@ function App() {
             <Route exact path="/create-post">
               <CreatePost />
             </Route>
-            <Route path="/article/:id">
+            <Route path="/articles">
+              <Articles />
+            </Route>
+            <Route exact path="/article/:id">
               <Article />
             </Route>
+            
             <Route path="/">
               <Home />
             </Route>

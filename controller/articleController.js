@@ -34,4 +34,17 @@ const article_get_single = (req,res)=>{
         }
     });
 }
-module.exports = {article_insert,article_get_three,article_get_single}
+const article_paginate=(req,res)=>{
+    var page = Number(req.params.page);
+    Article.find({}).sort({'date':-1}).limit(10).skip((page-1)*10).exec(
+        (err,posts)=>{
+            if(err){
+                console.log(err);
+            }else{
+                res.json(posts);
+            }
+        }
+    );
+}
+
+module.exports = {article_insert,article_get_three,article_get_single,article_paginate}

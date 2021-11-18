@@ -33,7 +33,7 @@ const Home = () => {
                 {posts.map((post)=>{
                   return(
                     <div className="col-sm-6 col-md-4 item" key={post._id}>
-                      <Link to={'article/'+post._id}>
+                      <Link to={'/article/'+post._id}>
                       {post.image!==''&&
                         <CloudinaryContext cloudName="SoftDevG2">
                           <Image publicId = {post.image} alt="vax-card"  className="img-fluid rounded" loading="lazy"/>
