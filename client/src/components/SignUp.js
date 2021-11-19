@@ -9,6 +9,7 @@ const SignUp = () => {
     const [type,setType]=useState('local');
     const [error,setError]=useState('');
     const [success,setSuccess]=useState(false);
+    const [name,setName]=useState('');
     useEffect(()=>{
         console.log(type);
     },[]);
@@ -21,7 +22,7 @@ const SignUp = () => {
         else{
             const request = await fetch('/api/auth/signup',{
                 method:'POST',
-                body:JSON.stringify({username,password,type}),
+                body:JSON.stringify({username,password,type,name}),
                 headers:{
                     'Content-Type':'application/json'
                 }
@@ -39,7 +40,7 @@ const SignUp = () => {
     }
     return ( 
     <section className="login-clean" onSubmit={handleSubmit} style={{background: '#25aae1'}}>
-        <form onSubmit={e=>{e.preventDefault()}}>
+        <form onSubmit={e=>{e.preventDefault()}} style={{width:'400px',maxWidth:'95%'}}>
             {error&&<div className="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>{error}</strong>
             </div>}
@@ -61,6 +62,14 @@ const SignUp = () => {
                 value={username}
                 onChange={e=>{
                     setUsername(e.target.value)
+                }}
+                /><input className="form-control" 
+                type="text"  
+                placeholder="Name" 
+                minLength={6} 
+                value={name}
+                onChange={e=>{
+                    setName(e.target.value)
                 }}
                 />
             </div>

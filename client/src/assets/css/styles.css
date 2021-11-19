@@ -1,3 +1,4 @@
+/*Styles for article list component*/
 .li-article-list{
     display:flex;
     flex-direction: column;
@@ -55,3 +56,25 @@
         max-height:250px;
     }
 }
+/*Styles for verify users component*/
+.table-container{
+    background-color: #fbfffc;
+    width:900px;
+    max-width:95%;
+    margin:30px auto auto auto;
+    height:750px;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.user-approve-table{
+    width:100%;
+    margin:30px auto 10px auto; 
+}
+.user-approve-description{
+    max-width: 100%;
+}
+.user-approve-controls{
+    display: flex;
+    justify-content: space-around;
+        }

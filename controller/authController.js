@@ -6,9 +6,14 @@ module.exports.login_post= async(req,res)=>{
     const {username,password}=req.body;
     try{
         const user = await User.login(username,password);
-        const token = createToken(user._id);
-        res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge*1000});
-        res.status(200).json({user:user._id});
+        if(user.status==='pending'){
+            throw Error("Account yet to be verified.")
+        }
+        else{
+            const token = createToken(user._id);
+            res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge*1000});
+            res.status(200).json({user:user._id});
+        }
     }
     catch(error){
         res.json({error:error.message});
@@ -21,9 +26,9 @@ const createToken = (id)=>{
 };
 
 module.exports.signup_post=async(req,res)=>{
-    const {username,password,type}=req.body;
+    const {username,password,type,name}=req.body;
     try{
-        const user = await User.create({username,password,type});
+        const user = await User.create({username,password,type,name});
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({ user: user._id });
@@ -61,4 +66,25 @@ module.exports.is_loggedin=(req,res)=>{
         res.json({username:''});
     }
     
+}
+module.exports.get_pending=(req,res)=>{
+    User.find({status:'pending'},'username name type').limit(30).exec((err,users)=>{
+        if(err){
+            res.json([]);
+        }
+        else{
+            res.json(users);
+        }
+    })
+}
+
+module.exports.approve_user=async(req,res)=>{
+    const {id}=req.body;
+    try{
+        await User.updateOne({_id:id},{status:'verified'});
+        res.json({response:'success'});
+    }
+    catch(error){
+        res.json({response:'failed'});
+    }
 }

@@ -18,6 +18,14 @@ const userSchema = new Schema({
         type:String,
         required:true,
         lowercase:true
+    },
+    status:{
+        type:String,
+        default:'pending'
+    },
+    name:{
+        type:String,
+        required:true
     }
 
 });

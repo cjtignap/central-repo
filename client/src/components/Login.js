@@ -45,8 +45,8 @@ const Login = () => {
     }
     return ( 
         <section className="login-clean" style={{background: '#25aae1'}}>
-            <form onSubmit={handleSubmit}>
-                {error&&<div className="alert alert-danger alert-dismissible fade show" role="alert">
+            <form onSubmit={handleSubmit} style={{width:'400px',maxWidth:'95%'}}>
+                {error&&<div className="alert alert-info alert-dismissible fade show" role="alert">
                     <strong>{error}</strong>
                 </div>}
                 <h2 className="sr-only">Login Form</h2>

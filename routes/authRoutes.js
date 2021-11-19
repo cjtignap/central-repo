@@ -5,4 +5,6 @@ router.post('/signup',authController.signup_post);
 router.post('/login',authController.login_post);
 router.get('/logout',authController.logout_get);
 router.get('/isLoggedIn',authController.is_loggedin);
+router.get('/getPending',authController.get_pending);
+router.post('/approveUser',authController.approve_user);
 module.exports = router;

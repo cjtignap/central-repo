@@ -10,7 +10,7 @@ import SignUp from "./components/SignUp";
 import CreatePost from "./components/CreatePost";
 import Article from "./components/Article";
 import Articles from "./components/Articles";
-
+import VerifyUsers from "./components/VerifyUsers";
 
 
 function App() {
@@ -34,6 +34,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <SignUp />
+            </Route>
+            <Route path="/verify">
+              <VerifyUsers />
             </Route>
             <Route path="/find-record/:id">
                 <FindRecord />
