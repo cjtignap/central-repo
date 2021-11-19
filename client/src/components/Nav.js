@@ -48,8 +48,6 @@ const Nav = () => {
             <div className="collapse navbar-collapse" id="navcol-1">
                 <ul className="navbar-nav mr-auto">
                     
-                    {user.type==='national'&&<li className="nav-item"><Link to="/create-post" className="nav-link">Create Post</Link></li>}
-                    {user.type==='national'&&<li className="nav-item"><Link to="/verify" className="nav-link">Verify Users</Link></li>}
                     <li className="nav-item"><Link to="/upload-record" className="nav-link">Upload Record</Link></li>
                     <li className="nav-item"><Link to="/find-record" className="nav-link">Find Record</Link></li>
                     <li className="nav-item"><Link to="/articles" className="nav-link">Latest News</Link></li>
@@ -57,8 +55,30 @@ const Nav = () => {
                 
                 <span className="navbar-text actions">
                     {!user.username&&<Link className="btn btn-light action-button" role="button" to="/login">Log In</Link>}
-                    {user.username&&<a className="login" ><strong>{user.username}</strong></a>}
-                    {user.username&&<a className="btn btn-light action-button" role="button" onClick={handleLogout} href="#">Log Out</a>}
+                    
+                    
+                    {user.username&&
+                    <div className="dropdown">
+                        <button 
+                            className="btn btn-secondary dropdown-toggle" 
+                            type="button" 
+                            id="dropdownMenuButton" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="false"
+                            style={{backgroundColor:'#56c6c6'}}
+                        >
+                            {user.name}
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {user.type==='national'&&<li className="dropdown-item"><Link to="/create-post" className="nav-link">Create Post</Link></li>}
+                        {user.type==='national'&&<li className="dropdown-item"><Link to="/verify" className="nav-link">Verify Users</Link></li>}
+                        {user.username&&<li className="dropdown-item" ><a href="#" className="nav-link" onClick={handleLogout} style={{color:'#56c6c6'}}>Log Out</a></li>}
+                        </div>
+                    </div>
+                      
+                    }
+
                 </span>
 
             </div>

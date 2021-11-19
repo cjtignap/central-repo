@@ -58,7 +58,7 @@ module.exports.is_loggedin=(req,res)=>{
             }
             else{
                 let user = await User.findById(decodedToken.id);
-                res.json({username:user.username,type:user.type});  
+                res.json({username:user.username,type:user.type,name:user.name});  
             }
         });
     }
