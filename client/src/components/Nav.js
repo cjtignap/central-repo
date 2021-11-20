@@ -68,11 +68,12 @@ const Nav = () => {
                             aria-expanded="false"
                             style={{backgroundColor:'#56c6c6'}}
                         >
-                            {user.name}
+                            {user.name.length>12?user.name.substring(0,12):user.name}
                         </button>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         {user.type==='national'&&<li className="dropdown-item"><Link to="/create-post" className="nav-link">Create Post</Link></li>}
                         {user.type==='national'&&<li className="dropdown-item"><Link to="/verify" className="nav-link">Verify Users</Link></li>}
+                        {user.type==='local'&&<li className="dropdown-item"><Link to="/search-records" className="nav-link">Search Records</Link></li>}
                         {user.username&&<li className="dropdown-item" ><a href="#" className="nav-link" onClick={handleLogout} style={{color:'#56c6c6'}}>Log Out</a></li>}
                         </div>
                     </div>

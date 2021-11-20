@@ -77,4 +77,30 @@
 .user-approve-controls{
     display: flex;
     justify-content: space-around;
-        }
+}
+.audit-container{
+    background-color:#fbfffc;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width:95%;
+    width:800px;
+    margin:50px auto 0 auto;;
+}
+.audit-container-search1{
+   display:flex;
+   justify-content: space-evenly;
+   width:90%;
+   margin: 10px auto 10px auto;
+}
+@media only screen and (max-width: 550px) {
+    .audit-container-search1 input{
+        margin-bottom:10px;
+    }
+    .audit-container-search1 button{
+        width:100px;
+    }
+    .audit-container-search1{
+        flex-direction: column;
+    }
+}

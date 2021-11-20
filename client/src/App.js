@@ -11,6 +11,7 @@ import CreatePost from "./components/CreatePost";
 import Article from "./components/Article";
 import Articles from "./components/Articles";
 import VerifyUsers from "./components/VerifyUsers";
+import SearchRecords from "./components/SearchRecords";
 
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
         <Nav />
         
         <Switch>
+          <Route exact path="/search-records">
+                <SearchRecords />
+            </Route>
             <Route exact path="/upload-record">
                 <MakeRecord />
             </Route>
