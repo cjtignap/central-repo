@@ -46,5 +46,29 @@ const article_paginate=(req,res)=>{
         }
     );
 }
+const article_get_by_author =(req,res)=>{
+    const author = req.params.author;
 
-module.exports = {article_insert,article_get_three,article_get_single,article_paginate}
+    Article.find({author}).limit(20).exec((err,articles)=>{
+        if(err){
+            res.status(503).json({});
+        }
+        else{
+            res.json(articles);
+        }
+    });
+}
+
+const article_delete=(req,res)=>{
+    const id = req.params.id;
+    Article.deleteOne({_id:id},err=>{
+        if(err){
+            res.status(503).json({status:'failed'});
+        }
+        else{
+            res.status(200).json({status:'success'})
+        }
+    });
+    
+}
+module.exports = {article_insert,article_get_three,article_get_single,article_paginate,article_get_by_author,article_delete}

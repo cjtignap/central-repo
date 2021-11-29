@@ -13,9 +13,24 @@ const CreatePost = () => {
     const [success,setSuccess]=useState(false);
     const [status,setStatus]=useState('');
     const [toggle,setToggle]=useState(1);
+    const [articles,setArticles]=useState([]);
+
+
     useEffect(()=>{
         setImage(generateID());
     },[toggle]);
+
+    useEffect(()=>{
+        const fetchArticles=async()=>{
+            //user.username
+            const res = await fetch(`/api/articles/author/${user.username}`);
+            const result = await res.json();
+            setArticles(result);
+        }
+
+        fetchArticles();
+    },[articles]);
+    
     useEffect(()=>{
         if(user){
             if(user.type!=='national'){
@@ -26,6 +41,7 @@ const CreatePost = () => {
             history.push('/');
         }
     },[user]);
+
     const generateID=()=>{
         let id = ''
         for(let i = 0;i<8;i++)
@@ -35,10 +51,9 @@ const CreatePost = () => {
         }
         return id;
     }
-    const handleSubmit=(e)=>{
 
+    const handleSubmit=(e)=>{
         e.preventDefault();
-        
         const asyncUpload = async()=>{
             console.log(user.username);
             try{
@@ -100,10 +115,12 @@ const CreatePost = () => {
             asyncUpload();
         }
     }
+
     const handleImageSelect =(e)=>{
         const file = e.target.files[0]
         previewImage(file);
     }
+
     const previewImage = (file)=>{
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -111,6 +128,23 @@ const CreatePost = () => {
             setActualImage(reader.result);
         }
     }
+
+    const handleViewArticle=(id)=>{
+        const win = window.open(`/article/${id}`, "_blank");
+        win.focus();
+    }
+
+    const handleDeleteArticle=(id)=>{
+        try{
+            fetch(`/api/articles/${id}`,{method:'DELETE'})
+        }
+        catch(error){
+            console.error("failed to delete");
+        }
+        
+    }
+
+
     return (
         <div>
             
@@ -165,6 +199,36 @@ const CreatePost = () => {
                     </div>
                 </form>
             </section>
+            {articles.length>0&&<div className="table-container">
+                <h2 style={{margin:'0 auto 0 auto'}}>Your articles</h2>
+                <table className="table table-striped table-hover user-approve-table" >
+                    <thead className="thead-dark">
+                        <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Body</th>
+                        <th scope="col"  className="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                            {articles.map(article=>{
+                            return(<tr key={article.id}>
+                                <td scope="row">{article.title}</td>
+                                <td scope="row">{article.body.length>100?article.body.substring(0,100):article.body}</td>
+                                <td scope="row" style={{textAlign:'center',display:'flex'}}>
+                                    <button className="btn btn-success" style={{margin:'0 5 auto 0'}} onClick={()=>{handleViewArticle(article._id)}}>View</button>
+                                    <button className="btn btn-danger"style={{margin:'0 0 auto 5'}} onClick={()=>{handleDeleteArticle(article._id)}}>Delete</button>
+                                </td>
+                                
+                            </tr>)}
+                            
+                            )
+                            
+                            }
+
+                    </tbody>
+                </table>
+            </div>}
             </div>
 
       );
