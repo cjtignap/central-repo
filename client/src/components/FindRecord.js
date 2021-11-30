@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import { Image,Transformation,CloudinaryContext } from 'cloudinary-react';
 const FindRecord = () => {
 
     const [id,setId] = useState('');
+    const [status,setStatus]=useState('');
     const [first_name,setFirstName] = useState('');
     const [last_name,setLastName] = useState('');
     const [province,setProvince]=useState('');
@@ -14,6 +15,16 @@ const FindRecord = () => {
     const [error,setError]=useState();
     const [vaccine_proof,setVaccineProof]=useState('');
     const [valid_id,setValidId]=useState('');
+    const [statColor,setStatColor]=useState('black');
+    useEffect(()=>{
+        if(status==='Verified'){
+            setStatColor('#2bb673');
+        }
+        else{
+            setStatColor('#4B0082');
+        }
+    },[status]);
+    
     const handleSubmit=(e)=>{
         e.preventDefault();
     }
@@ -42,6 +53,7 @@ const FindRecord = () => {
                     setVaccineProof(data.vaccine_proof);
                     setValidId(data.valid_id);
                     setProvince(data.province);
+                    setStatus(data.status);
                 }
             }catch(err){
                 setError('Server error');
@@ -66,11 +78,18 @@ const FindRecord = () => {
                 </div>
                 <div className="form-group">
                     <p><strong>Name</strong> : {first_name} {last_name} </p>
+                    <p>
+                        <strong>
+                            Record Status:
+                            <a style={{color:'white',backgroundColor:statColor,padding:'5px 15px 5px 15px',borderRadius:'25px'}}>
+                                {status==='Verified'?'Verified':'Unverified'}
+                            </a>
+                        </strong>
+                    </p>
                     <p><strong>Vaccination Status</strong> : {vaccination_status}</p>   
                     <p><strong>Vaccine Brand</strong> : {vaccine_brand}</p>
                     <p><strong>Vaccination Date</strong> : {date}</p>
                     <p><strong>Address</strong> : {barangay}, {city}, {province}</p>
-                    
 
                     <CloudinaryContext cloudName="SoftDevG2">
                         {vaccine_proof && <p><strong>Vax card</strong>

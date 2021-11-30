@@ -7,6 +7,9 @@ const recordSchema = new Schema(
         _id:{
             type:String
         },
+        status:{
+            type:String
+        },
         vaccination_status : {
             type:String
         },

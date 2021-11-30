@@ -7,13 +7,13 @@ const MakeRecord = () => {
     const [_id,setId] = useState('');
     const [first_name,setFirstName] = useState('');
     const [last_name,setLastName] = useState('');
-    const [city,setCity]=useState('');
     const [vaccine_brand,setBrand]=useState('');
     const [vaccination_status,setVaxStatus]=useState('Partial Vaccinatted');
+    const [region,setRegion]=useState('');
+    const [province,setProvince]=useState('');
+    const [city,setCity]=useState('');
     const [barangay,setBarangay]=useState('');
     const [date,setDate]=useState('');
-    const [province,setProvince]=useState('');
-    const [region,setRegion]=useState('');
     const [proofImage,setproofImage]=useState('');
     const [vaccine_proof,setVaccineProof]=useState('');
     const [success_id,setSuccessID]=useState('');
@@ -247,7 +247,6 @@ const MakeRecord = () => {
                         onChange={e=>{
                             setProvince(e.value)
                         }}
-                        
                         options={provinces}
                     />
                     <Select 
