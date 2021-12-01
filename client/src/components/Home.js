@@ -14,6 +14,9 @@ const Home = () => {
     fetchPosts();
   },[]);
     return ( 
+      <div className="general-container"> 
+
+      
         <div>
           <div className="jumbotron">
             <h1>Centralized Vaccination Database</h1>
@@ -24,7 +27,7 @@ const Home = () => {
             <div className="container">
               <div className="intro">
                 <h2 className="text-center">Latest Articles</h2>
-                <p className="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae. </p>
+                <p className="text-center">Keep updated by reading the latest news, articles and announcements from the administrator. </p>
               </div>
 
               {posts&&
@@ -55,6 +58,28 @@ const Home = () => {
               </div>} 
             </div>
           </section>
+        </div>
+        <footer className="footer-dark">
+          <div className="container">
+            <div className="row" style={{textAlign: 'left'}}>
+              <div className="col-md-6 item text">
+                <h3>Vaccination Database</h3>
+                <p>Centralized Vaccination Database and Information System. A Project on Software Design&nbsp;</p>
+              </div>
+              <div className="col-md-6 item text">
+                <h3>About Us</h3>
+                <p>Reynaldo San Pedro&nbsp;<br />Nimrod Manalaysay<br />Emmanuel Dilig<br />Jordan Balbuena<br />Chris John Dela Cruz</p>
+              </div>
+            </div>
+            <div className="col item social">
+              <a href="https://www.facebook.com/cjtignap"><i className="icon ion-social-facebook" /></a>
+              <a href="https://github.com/cjtignap/central-repo"><i className="icon ion-social-github" /></a>
+              <a href="mailto:chrisjohn.delacruz.c@bulsu.edu.ph"><i className="icon ion-email" /></a>
+            </div>
+            <p className="copyright">Vaccination Database © 2017</p>
+          </div>
+        </footer>
+              
         </div>
      );
 }
