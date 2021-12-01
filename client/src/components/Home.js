@@ -76,7 +76,7 @@ const Home = () => {
               <a href="https://github.com/cjtignap/central-repo"><i className="icon ion-social-github" /></a>
               <a href="mailto:chrisjohn.delacruz.c@bulsu.edu.ph"><i className="icon ion-email" /></a>
             </div>
-            <p className="copyright">Vaccination Database © 2017</p>
+            <p className="copyright">Vaccination Database © {new Date().getFullYear()}</p>
           </div>
         </footer>
               

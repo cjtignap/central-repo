@@ -80,7 +80,7 @@ const FindRecord = () => {
                     <p><strong>Name</strong> : {first_name} {last_name} </p>
                     <p>
                         <strong>
-                            Record Status:
+                            Record Status: 
                             <a style={{color:'white',backgroundColor:statColor,padding:'5px 15px 5px 15px',borderRadius:'25px'}}>
                                 {status==='Verified'?'Verified':'Unverified'}
                             </a>
@@ -94,15 +94,15 @@ const FindRecord = () => {
                     <CloudinaryContext cloudName="SoftDevG2">
                         {vaccine_proof && <p><strong>Vax card</strong>
                             <br />
-                            <Image publicId = {vaccine_proof} alt="vax-card" height="200px">
-                                <Transformation  width="300" height="300" />
+                            <Image publicId = {vaccine_proof} alt="vax-card" width="100%">
+                                
                             </Image>
                         </p>}
                         {valid_id&&
                         <p><strong>Valid ID</strong>
                             <br />
-                            <Image publicId = {valid_id} alt="valid-id" height="200px">
-                            <Transformation  width="500" height="500" />
+                            <Image publicId = {valid_id} alt="valid-id"  width="100%">
+                            
                         </Image>
                         </p>
                         }
