@@ -2,15 +2,26 @@ import {useEffect,useState} from 'react';
 import { useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom'
 import Select from 'react-select';
+
+import ReactExport from 'react-data-export';
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+
 const phLocations = require('../assets/barangays.json');
 
 
 const SearchRecords = () => {
+    //history hook
+    const history = useHistory();
+    //from redux
     const user = useSelector((state)=>state.user.user);
+    //fetched records
+    const [records,setRecords] = useState([]);
+
+    //options for searching
     const [first_name,setFirstName]=useState('');
     const [last_name,setLastName]=useState('');
-    const history = useHistory();
-    const [records,setRecords] = useState([]);
     const [brand,setBrand]=useState('');
     const [vaccination_status,setVaxStatus]=useState('');
     const [status,setStatus]=useState('');
@@ -27,7 +38,7 @@ const SearchRecords = () => {
     const [cities,setCities]=useState([]);
     const [barangays,setBarangays]=useState([]);
 
-    //misc state
+    //misc states
     const [showAdvance,setShowAdvance]=useState(false);
 
     const handleAdvance=()=>{
@@ -149,7 +160,11 @@ const SearchRecords = () => {
             }
         }
         randomFunc();
-   },[records]);
+    },[records]);
+   
+    const handleExport = async()=>{
+        console.log("GLICKED");
+    }   
 
     const handleSearch=async()=>{
 
@@ -201,6 +216,24 @@ const SearchRecords = () => {
             body:JSON.stringify({_id,first_name,last_name,vaccination_status,vaccine_brand})
         });
     }
+
+    const DataSet = [{
+        columns:[
+            {title:"First name"},
+            {title:"Last name"},
+            {title:"Vaccine Brand"},
+            {title:"Vaccination Status"}
+        ],
+        data:records.map((record)=>[
+            {value:record.first_name},
+            {value:record.last_name},
+            {value:record.vaccine_brand},
+            {value:record.vaccination_status}
+        ])
+    }]
+
+    console.log(DataSet);
+    
     return (
         <div>
             <div className="search-container">
@@ -240,13 +273,29 @@ const SearchRecords = () => {
                         >
                             {showAdvance?'Hide Advance':'Show advance'}
                         </a> 
+                        <div>
                         <button 
                             className="btn btn-primary" 
-                            style={{width:'100px'}}
+                             style={{marginRight:'5px'}}
                             onClick={handleSearch}
                         >
                             Search
                         </button>
+
+                        <ExcelFile 
+                         filename="Exported datas" 
+                         element={<button type="button"  className="btn btn-info" >Export</button>}>
+                             <ExcelSheet dataSet={DataSet} name="Exported datas"/>
+                         </ExcelFile>
+                        {/* <button 
+                            className="btn btn-info" 
+                            
+                            onClick={handleExport}
+                        >
+                            Export
+                        </button> */}
+                        </div>
+                        
                     </div>
                     
                     <div className="collapse" id="showAdvance">

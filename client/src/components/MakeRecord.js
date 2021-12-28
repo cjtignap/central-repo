@@ -206,12 +206,8 @@ const MakeRecord = () => {
                     
                 </div>}
                 <h2 className="text-center">Register</h2>
-                {success_id&&<div className="alert alert-success alert-dismissible fade show" role="alert">
+                {success_id &&<div className="alert alert-success alert-dismissible fade show" role="alert">
                     Upload Success! <br />Registered ID : <strong>{success_id}</strong>
-                    
-                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                     <a 
                         href="#" 
                         class="text-primary"
@@ -220,6 +216,10 @@ const MakeRecord = () => {
                     >
                         Copy
                     </a>
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
                 </div>}
                 
 

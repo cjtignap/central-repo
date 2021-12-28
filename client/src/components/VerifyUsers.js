@@ -41,7 +41,7 @@ const VerifyUsers = () => {
     }
 
     return ( 
-        <div className="table-container">
+        <div className="table-container table-responsive">
             <div className="user-approve-description">
                 <h2>Verify User Registration</h2>
                 <h5>Finish pending users registrations.</h5>

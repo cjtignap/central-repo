@@ -201,6 +201,7 @@ const CreatePost = () => {
             </section>
             {articles.length>0&&<div className="table-container">
                 <h2 style={{margin:'0 auto 0 auto'}}>Your articles</h2>
+                <div className="table-responsive">
                 <table className="table table-striped table-hover user-approve-table" >
                     <thead className="thead-dark">
                         <tr>
@@ -228,6 +229,8 @@ const CreatePost = () => {
 
                     </tbody>
                 </table>
+                </div>
+                
             </div>}
             </div>
 

@@ -51,7 +51,7 @@ const Login = () => {
                 </div>}
                 <h2 className="sr-only">Login Form</h2>
                 <div className="illustration">
-                    <i className="icon ion-ios-navigate"><img src={logo300} alt="logo"  style={{maxWidth:'90%'}}/></i>
+                    <i ><img src={logo300} alt="logo"  style={{maxWidth:'90%'}}/></i>
                     
                 </div>
                 <div className="form-group">
