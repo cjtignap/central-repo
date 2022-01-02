@@ -1,4 +1,4 @@
-
+const User = require('../model/user');
 const Record = require('../model/record');
 
 
@@ -16,6 +16,7 @@ const record_insert = (req,res)=>{
 }
 const record_get = async(req,res)=>{
     const id = req.params.id;
+    
     try{
         const record = await Record.findById(id);
         if(record){
@@ -26,7 +27,7 @@ const record_get = async(req,res)=>{
         }
     }
     catch(error){
-        console.log(error.message);
+        res.status(500).json({error});
     }
     
 }
@@ -162,5 +163,20 @@ const record_advance_search = async(req,res)=>{
         }
     })
 }  
+
+// const userID = req.query.key
+     
+
+
+//     User.findOne({_id:userID,type:'local'},async function(err,user){
+//         if(err||user===null){
+//            res.status(404).json({error:"Invalid API KEY"})
+//         }
+//         else{
+           
+    
+//         }
+//     });
+
 module.exports = {record_insert,record_get,record_search,record_delete,record_verify,record_advance_search};
 

@@ -3,7 +3,7 @@ const router = express.Router();
 const recordController = require('../controller/recordController');
 
 
-router.post('/search',recordController.record_search);
+router.post('/search?',recordController.record_search);
 router.post('/advanceSearch',recordController.record_advance_search);
 router.delete('',recordController.record_delete);
 router.post('/',recordController.record_insert);
