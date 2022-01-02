@@ -28,6 +28,7 @@ const userSchema = new Schema({
         required:true
     }
 
+
 });
 userSchema.pre('save',async function(next){
     const salt = await bcrypt.genSalt();
