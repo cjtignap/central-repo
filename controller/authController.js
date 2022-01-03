@@ -58,7 +58,7 @@ module.exports.is_loggedin=(req,res)=>{
             }
             else{
                 let user = await User.findById(decodedToken.id);
-                res.json({username:user.username,type:user.type,name:user.name});  
+                res.json({_id:user._id,username:user.username,type:user.type,name:user.name});  
             }
         });
     }
@@ -80,11 +80,35 @@ module.exports.get_pending=(req,res)=>{
 
 module.exports.approve_user=async(req,res)=>{
     const {id}=req.body;
-    try{
-        await User.updateOne({_id:id},{status:'verified'});
-        res.json({response:'success'});
-    }
-    catch(error){
-        res.json({response:'failed'});
-    }
+
+    const userID = req.query.key
+     
+    User.findOne({_id:userID,type:'national'}, async function(err,user){
+        if(err||user===null){
+           res.status(404).json({error:"Invalid API KEY"})
+        }
+        else{
+            try{
+                await User.updateOne({_id:id},{status:'verified'});
+                res.json({response:'success'});
+            }
+            catch(error){
+                res.json({response:'failed'});
+            }
+
+        }
+    });
+    
 }
+
+// const userID = req.query.key
+     
+// User.findOne({_id:userID,type:'local'}, function(err,user){
+//     if(err||user===null){
+//        res.status(404).json({error:"Invalid API KEY"})
+//     }
+//     else{
+       
+
+//     }
+// });

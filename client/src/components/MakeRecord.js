@@ -290,8 +290,9 @@ const MakeRecord = () => {
                         placeholder='Select Vaccination Status'
                         onChange={e=>{setVaxStatus(e.value)}}
                         options={[
+                            {value:'Partially Vaccinated',label:'Partially Vaccinated'},
                             {value:'Fully Vaccinated',label:'Fully Vaccinated'},
-                            {value:'Partially Vaccinated',label:'Partially Vaccinated'}
+                            {value:'Fully Vaccinated with Booster',label:'Fully Vaccinated with Booster'}
                         ]}
                     />
                     <br />

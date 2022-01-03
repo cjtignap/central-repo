@@ -71,7 +71,7 @@ const CreatePost = () => {
                     });
 
                     setStatus('Uploading article...');
-                    await fetch('/api/articles',{
+                    await fetch(`/api/articles?key=${user._id}`,{
                         
                         method:'POST',
                         headers:{
@@ -85,7 +85,7 @@ const CreatePost = () => {
                 }
                 else{
                     setStatus('Uploading article...');
-                    await fetch('/api/articles',{
+                    await fetch(`/api/articles?key=${user._id}`,{
                         
                         method:'POST',
                         headers:{
@@ -136,7 +136,7 @@ const CreatePost = () => {
 
     const handleDeleteArticle=(id)=>{
         try{
-            fetch(`/api/articles/${id}`,{method:'DELETE'})
+            fetch(`/api/articles/${id}?key=${user._id}`,{method:'DELETE'})
         }
         catch(error){
             console.error("failed to delete");

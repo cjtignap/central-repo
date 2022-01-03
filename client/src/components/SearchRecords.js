@@ -135,7 +135,7 @@ const SearchRecords = () => {
    useState(()=>{
         const randomFunc = async()=>{
             if(!showAdvance){    
-                const res = await fetch('/api/records/search',{
+                const res = await fetch(`/api/records/search?key=${user._id}`,{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'
@@ -162,14 +162,11 @@ const SearchRecords = () => {
         randomFunc();
     },[records]);
    
-    const handleExport = async()=>{
-        console.log("GLICKED");
-    }   
-
+    
     const handleSearch=async()=>{
 
         if(!showAdvance){    
-            const res = await fetch('/api/records/search',{
+            const res = await fetch(`/api/records/search?key=${user._id}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
@@ -181,7 +178,7 @@ const SearchRecords = () => {
             setRecords(resArray);
         }
         else{
-            const res = await fetch('/api/records/advanceSearch',{
+            const res = await fetch(`/api/records/advanceSearch?key=${user._id}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
@@ -197,7 +194,7 @@ const SearchRecords = () => {
 
     const deleteUser = (_id,first_name,last_name,vaccination_status,vaccine_brand)=>{
             _id = _id.substring(4,8);
-            fetch('/api/records/',{
+            fetch(`/api/records/?key=${user._id}`,{
             method:'DELETE',
             headers:{
                 'Content-Type':'application/json'
@@ -208,7 +205,7 @@ const SearchRecords = () => {
 
     const verifyUser = (_id,first_name,last_name,vaccination_status,vaccine_brand)=>{
         _id = _id.substring(4,8);
-        fetch('/api/records/verify',{
+        fetch(`/api/records/verify?key=${user._id}`,{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -232,7 +229,6 @@ const SearchRecords = () => {
         ])
     }]
 
-    console.log(DataSet);
     
     return (
         <div>
@@ -416,8 +412,10 @@ const SearchRecords = () => {
                             }}
                             isClearable={true}
                             options={[
+                                
+                                {value:'Partially Vaccinated',label:'Partially Vaccinated'},
                                 {value:'Fully Vaccinated',label:'Fully Vaccinated'},
-                                {value:'Partially Vaccinated',label:'Partially Vaccinated'}
+                                {value:'Fully Vaccinated with Booster',label:'Fully Vaccinated with Booster'}
                             ]}
                         />
                     </div>

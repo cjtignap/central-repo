@@ -28,7 +28,7 @@ const VerifyUsers = () => {
 
     const approveAccount = async(id)=>{
         try{
-            const res = await fetch('/api/auth/approveUser',{
+            const res = await fetch(`/api/auth/approveUser?key=${user._id}`,{
                 method:'POST',
                 headers:{
                 'Content-Type':'application/json'},

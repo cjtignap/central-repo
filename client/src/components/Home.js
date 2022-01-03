@@ -67,8 +67,11 @@ const Home = () => {
                 <p>Centralized Vaccination Database and Information System. A Project on Software Design&nbsp;</p>
               </div>
               <div className="col-md-6 item text">
-                <h3>About Us</h3>
+                <h3>Developers </h3>
                 <p>Reynaldo San Pedro&nbsp;<br />Nimrod Manalaysay<br />Emmanuel Dilig<br />Jordan Balbuena<br />Chris John Dela Cruz</p>
+                <br />
+                <h3>Special Thanks to </h3>
+                <p>Engr. Shiela May Liwag&nbsp;<br /><a href="https://www.facebook.com/justinsandique" target="_blank" style={{color:'rgba(255,255,255,1)'}}>Justin Sandique</a></p>
               </div>
             </div>
             <div className="col item social">
