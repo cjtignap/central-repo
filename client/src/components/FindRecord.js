@@ -1,7 +1,9 @@
 import {useState,useEffect} from 'react';
-import { Image,Transformation,CloudinaryContext } from 'cloudinary-react';
+import { Image,CloudinaryContext } from 'cloudinary-react';
+import html2canvas from 'html2canvas';
+import {useRef} from 'react';
 const FindRecord = () => {
-
+    const printableArea = useRef(0);
     const [id,setId] = useState('');
     const [status,setStatus]=useState('');
     const [first_name,setFirstName] = useState('');
@@ -26,6 +28,19 @@ const FindRecord = () => {
     },[status]);
     
     const handleSubmit=(e)=>{
+        e.preventDefault();
+    }
+    const handleDownload = (e)=>{
+        html2canvas.allowTaint=true;
+        html2canvas(printableArea.current,{allowTaint : true}).then(function(canvas) {
+            const a = document.createElement("a");
+            document.body.appendChild(a);
+            a.href= canvas.toDataURL();
+            a.download="canvas-image.png";
+            a.click();
+            document.body.removeChild(a);
+        });
+
         e.preventDefault();
     }
     const handleSearch = async()=>{
@@ -64,7 +79,7 @@ const FindRecord = () => {
     }
     return ( 
 
-        <section className="contact-clean">
+        <section className="contact-clean" ref={printableArea}>
             <form onSubmit={handleSubmit} >
             {error&&<div className="alert alert-danger" role="alert">
                 No record found!
@@ -94,14 +109,14 @@ const FindRecord = () => {
                     <CloudinaryContext cloudName="SoftDevG2">
                         {vaccine_proof && <p><strong>Vax card</strong>
                             <br />
-                            <Image publicId = {vaccine_proof} alt="vax-card" width="100%">
+                            <Image publicId = {vaccine_proof} alt="vax-card" width="100%" crossorigin="anonymous">
                                 
                             </Image>
                         </p>}
                         {valid_id&&
                         <p><strong>Valid ID</strong>
                             <br />
-                            <Image publicId = {valid_id} alt="valid-id"  width="100%">
+                            <Image publicId = {valid_id} alt="valid-id"  width="100%" >
                             
                         </Image>
                         </p>
@@ -110,6 +125,8 @@ const FindRecord = () => {
                     </CloudinaryContext>
 
                 </div>
+                
+            {first_name&&!error&&<button onClick={handleDownload} className="btn btn-primary">Save</button>}
             </form>
         </section>
 

@@ -12,6 +12,7 @@ import Article from "./components/Article";
 import Articles from "./components/Articles";
 import VerifyUsers from "./components/VerifyUsers";
 import SearchRecords from "./components/SearchRecords";
+import SaveImage from "./components/SaveImage";
 
 
 function App() {
