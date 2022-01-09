@@ -32,11 +32,11 @@ const FindRecord = () => {
     }
     const handleDownload = (e)=>{
         html2canvas.allowTaint=true;
-        html2canvas(printableArea.current,{allowTaint : true}).then(function(canvas) {
+        html2canvas(printableArea.current,{allowTaint : true,useCORS:true}).then(function(canvas) {
             const a = document.createElement("a");
             document.body.appendChild(a);
             a.href= canvas.toDataURL();
-            a.download="canvas-image.png";
+            a.download=`${id}.png`;
             a.click();
             document.body.removeChild(a);
         });
@@ -79,8 +79,8 @@ const FindRecord = () => {
     }
     return ( 
 
-        <section className="contact-clean" ref={printableArea}>
-            <form onSubmit={handleSubmit} >
+        <section className="contact-clean" >
+            <form onSubmit={handleSubmit} ref={printableArea}>
             {error&&<div className="alert alert-danger" role="alert">
                 No record found!
             </div>}
