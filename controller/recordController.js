@@ -118,10 +118,9 @@ const record_verify = async(req,res)=>{
     });
     
 }
-const record_advance_search = async(req,res)=>{
+const record_advance_search1 = async(req,res)=>{
 
     const {first_name,last_name,region,province,city,barangay,vaccination_status,status,vaccine_brand} = req.body;
-    console.log(vaccination_status)
     var searchParams ;
     if(region.region_name!==''&&region.region_name){
         
@@ -180,35 +179,35 @@ const record_advance_search = async(req,res)=>{
                         vaccination_status:vaccination_status
                     };
     }
-    
-    const userID = req.query.key
-     
-    User.findOne({_id:userID,type:'local'},function(err,user){
-        if(err||user===null){
-           res.status(404).json({error:"Invalid API KEY"})
+    Record.find(searchParams,
+        "first_name last_name vaccination_status vaccine_brand status").sort({'date':-1}).limit(20).exec((err,records)=>{
+        if(err){
+            res.json([]);
         }
         else{
-            Record.find(searchParams,
-                "first_name last_name vaccination_status vaccine_brand status").sort({'date':-1}).limit(20).exec((err,records)=>{
-                if(err){
-                    res.json([]);
-                }
-                else{
-                    const recordsMod = [];
-                    records.map((record)=>{
-                        recordsMod.push({first_name:record.first_name,
-                            last_name:record.last_name,
-                            vaccination_status:record.vaccination_status,
-                            vaccine_brand:record.vaccine_brand,
-                            _id:'****'+record._id.substring(4,8),
-                            status:record.status
-                        })
-                    });
-                    res.json(recordsMod);
-                }
+            console.log(records);
+            const recordsMod = [];
+            records.map((record)=>{
+                recordsMod.push({first_name:record.first_name,
+                    last_name:record.last_name,
+                    vaccination_status:record.vaccination_status,
+                    vaccine_brand:record.vaccine_brand,
+                    _id:'****'+record._id.substring(4,8),
+                    status:record.status
+                })
             });
+            res.json(recordsMod);
         }
     });
+    // const userID = req.query.key
+    // User.findOne({_id:userID,type:'local'},function(err,user){
+    //     if(err||user===null){
+    //        res.status(404).json({error:"Invalid API KEY"})
+    //     }
+    //     else{
+            
+    //     }
+    // });
     
 }  
 
@@ -223,6 +222,90 @@ const record_advance_search = async(req,res)=>{
 
 //     }
 // });
+const record_advance_search = async(req,res)=>{
 
+    const {first_name,last_name,region,province,city,barangay,vaccination_status,status,vaccine_brand} = req.body;
+    var searchParams ;
+    if(region.region_name!==''){
+        if(province!==''&&province){
+            if(city!==''&&city){
+                if(barangay!==''&&barangay){
+                    searchParams = {first_name:{$regex:new RegExp(".*" + first_name+".*", "i") },
+                    region:region.region_name,
+                    province:province,
+                    city:city,
+                    barangay:barangay,
+                    last_name:{$regex:new RegExp(".*" + last_name+".*", "i")},
+                    vaccine_brand:{$regex:new RegExp(".*" + vaccine_brand+".*", "i")},
+                    // status:{$regex:new RegExp(".*" + status+".*", "i")},
+                    vaccination_status:{$regex:new RegExp(".*" + vaccination_status+".*", "i")}};
+                }
+                else{
+                    searchParams = {first_name:{$regex:new RegExp(".*" + first_name+".*", "i") },
+                        region:region.region_name,
+                        province:province,
+                        city:city,
+                        last_name:{$regex:new RegExp(".*" + last_name+".*", "i")},
+                        vaccine_brand:{$regex:new RegExp(".*" + vaccine_brand+".*", "i")},
+                        // status:{$regex:new RegExp(".*" + status+".*", "i")},
+                        vaccination_status:{$regex:new RegExp(".*" + vaccination_status+".*", "i")}};
+                }
+            }
+            else{
+                searchParams = {first_name:{$regex:new RegExp(".*" + first_name+".*", "i") },
+                        region:region.region_name,
+                        province:province,
+                        last_name:{$regex:new RegExp(".*" + last_name+".*", "i")},
+                        vaccine_brand:{$regex:new RegExp(".*" + vaccine_brand+".*", "i")},
+                        // status:{$regex:new RegExp(".*" + status+".*", "i")},
+                        vaccination_status:{$regex:new RegExp(".*" + vaccination_status+".*", "i")}};
+            }
+        }
+        else{
+            searchParams = {first_name:{$regex:new RegExp(".*" + first_name+".*", "i") },
+                        region:region.region_name,
+                        last_name:{$regex:new RegExp(".*" + last_name+".*", "i")},
+                        vaccine_brand:{$regex:new RegExp(".*" + vaccine_brand+".*", "i")},
+                        // status:{$regex:new RegExp(".*" + status+".*", "i")},
+                        vaccination_status:{$regex:new RegExp(".*" + vaccination_status+".*", "i")}};
+        }
+    }
+    else{
+        searchParams = {first_name:{$regex:new RegExp(".*" + first_name+".*", "i") },
+                        last_name:{$regex:new RegExp(".*" + last_name+".*", "i")},
+                        vaccine_brand:{$regex:new RegExp(".*" + vaccine_brand+".*", "i")},
+                        // status:{$regex:new RegExp(".*" + status+".*", "i")},
+                        vaccination_status:{$regex:new RegExp(".*" + vaccination_status+".*", "i")}
+                    };
+    }
+    const userID = req.query.key
+    User.findOne({_id:userID,type:'local'}, function(err,user){
+        if(err||user===null){
+            res.status(404).json({error:"Invalid API KEY"})
+        }
+    else{
+        Record.find(searchParams,
+            "first_name last_name vaccination_status vaccine_brand status").sort({'date':-1}).limit(20).exec((err,records)=>{
+            if(err){
+                res.json([]);
+            }
+            else{
+                const recordsMod = [];
+                records.map((record)=>{
+                    recordsMod.push({first_name:record.first_name,
+                        last_name:record.last_name,
+                        vaccination_status:record.vaccination_status,
+                        vaccine_brand:record.vaccine_brand,
+                        _id:'****'+record._id.substring(4,8),
+                        status:record.status
+                    })
+                });
+                res.json(recordsMod);
+            }
+        })
+    }
+});
+    
+}  
 module.exports = {record_insert,record_get,record_search,record_delete,record_verify,record_advance_search};
 
