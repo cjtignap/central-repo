@@ -1,5 +1,7 @@
 import {useState,useEffect} from 'react';
 import { Image,CloudinaryContext } from 'cloudinary-react';
+import QrReader from 'react-qr-reader';
+import QRCode from 'qrcode'
 import html2canvas from 'html2canvas';
 import {useRef} from 'react';
 const FindRecord = () => {
@@ -18,6 +20,9 @@ const FindRecord = () => {
     const [vaccine_proof,setVaccineProof]=useState('');
     const [valid_id,setValidId]=useState('');
     const [statColor,setStatColor]=useState('black');
+    const [scan,setScan]=useState(false);
+    const [qrcode,setQrcode]=useState('');
+
     useEffect(()=>{
         if(status==='Verified'){
             setStatColor('#2bb673');
@@ -26,7 +31,20 @@ const FindRecord = () => {
             setStatColor('#4B0082');
         }
     },[status]);
-    
+    useEffect(()=>{
+        if(id){
+            generateQrCode();
+        }
+    },[first_name]);
+
+    const generateQrCode = async () => {
+        try {
+              const response = await QRCode.toDataURL(id,{width:'500'});
+              setQrcode(response);
+        }catch (error) {
+          console.log(error);
+        }
+    }
     const handleSubmit=(e)=>{
         e.preventDefault();
     }
@@ -51,7 +69,6 @@ const FindRecord = () => {
             try{
                 const res = await fetch('/api/records/'+id);
                 const data = await res.json();
-                console.log(data.error);
                 if(data.error){
                     setError(data.error);
                 }
@@ -77,6 +94,24 @@ const FindRecord = () => {
         
 
     }
+    const handleErrorWebCam = (error)=>{
+        setScan(false);
+    }
+    const handleScanWebCam  = async (result)=>{
+        if(result!==null){
+            setId(result);
+            await handleSearch();
+            setScan(false);
+        }
+    }
+    const handleQR = (e) =>{
+        if(scan){
+            setScan(false);
+        }
+        else{
+            setScan(true);
+        }
+    }
     return ( 
 
         <section className="contact-clean" >
@@ -89,8 +124,23 @@ const FindRecord = () => {
                 <h2 className="text-center">Search Record</h2>
                 <div className="form-group">
                     <input className="form-control" type="text" name="name" placeholder="Record ID" value={id}  onChange={(e)=>{setId(e.target.value)}}/>
+                    <div style = {{'display':'flex','justifyContent':'space-between'}}>
+
                     <button className="btn btn-primary" onClick={handleSearch}>Search </button>
+                    <button className="btn btn-primary" onClick={handleQR} >QR </button>
+                    </div>
                 </div>
+                {scan &&
+                <div className='form-group'>
+                
+                    <h5>Qr Code Scan by Web Cam</h5>
+                            <QrReader
+                            delay={500}
+                            style={{width: '100%'}}
+                            onError={handleErrorWebCam}
+                            onScan={handleScanWebCam}
+                            />
+                    </div>}
                 <div className="form-group">
                     <p><strong>Name</strong> : {first_name} {last_name} </p>
                     <p>
@@ -123,7 +173,9 @@ const FindRecord = () => {
                         }
                         
                     </CloudinaryContext>
-
+                    <a href={qrcode} download >
+                            <img src={qrcode} style={{'width':'100%'}}/>
+                        </a>
                 </div>
                 
             {first_name&&!error&&<button onClick={handleDownload} className="btn btn-primary">Save</button>}

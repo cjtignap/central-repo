@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import Select from 'react-select';
+import QRCode from 'qrcode'
 const phLocations = require('../assets/barangays.json');
 const MakeRecord = () => {
 
@@ -22,6 +23,7 @@ const MakeRecord = () => {
     const [uploading,setUploading]=useState(false);
     const [count,setCount]=useState(0);
     const [error,setError]=useState('');
+    const [qrcode, setQrcode]=useState('');
 
     //for selecting adressess
     const [regions,setRegions]=useState([]);
@@ -100,6 +102,22 @@ const MakeRecord = () => {
         }
         setRegions(regionsArray);
     },[]);
+
+    //generating qr code
+    useEffect(()=>{
+        if(success_id){
+            generateQrCode();
+        }
+    },[success_id]);
+
+    const generateQrCode = async () => {
+        try {
+              const response = await QRCode.toDataURL(success_id,{width:'500'});
+              setQrcode(response);
+        }catch (error) {
+          console.log(error);
+        }
+    }
 
     //setting up provinces
     useEffect(()=>{
@@ -221,6 +239,14 @@ const MakeRecord = () => {
                     </button>
                     
                 </div>}
+
+                {success_id&&
+                    <div style={{'display':'flex','flexDirection':'column','alignItems':'center','width':'100%'}}>
+                        <h5 style={{'marginBottom':'0'}}>Click QR to Download</h5>
+                        <a href={qrcode} download >
+                            <img src={qrcode} style={{'width':'100%'}}/>
+                        </a>
+                    </div>}
                 
 
                 <div className="form-group">
