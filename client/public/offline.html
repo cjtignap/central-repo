@@ -4,10 +4,42 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="theme-color" content=#25AAE1"/>
+    <meta name="theme-color" content="#25AAE1"/>
     <title>Offline</title>
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+            
+            color: #2bb673;
+        }
+        .main-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top:75px;
+        }
+        .image-container{
+            max-width: 95%;
+            width:700px;
+        }
+        .no-internet{
+            max-width: 100%;
+        }
+        p,h1{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>OFFLINE</h1>
+    <div class="main-container">
+        <div class="image-container">
+            <img class="no-internet" src="no-internet.png" alt="no-internet" />
+        </div>
+
+        
+        <h1><b>OFFLINE</b></h1>
+        <p>Connect to internet first to use the application</p>
+    </div>
 </body>
 </html>
