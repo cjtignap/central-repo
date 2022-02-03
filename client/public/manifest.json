@@ -3,9 +3,33 @@
   "short_name":"Vaccination Checker",
   "start_url":"./",
   "scope":".",
-  "theme-color":"#25aae1",
+  "theme-color":"#25AAE1",
   "background-color":"#FFFFFF",
-  
+  "shortcuts":[
+      {
+          "name":"Upload Record",
+          "short_name":"Upload",
+          "description":"Upload vaccination records",
+          "url":"/upload-record",
+          "icons":[{"src":"\/upload.png","sizes":"256x256"}]
+      },
+
+      {
+        "name":"Search Record",
+        "short_name":"Search",
+        "description":"Search vaccination records",
+        "url":"/find-record",
+        "icons":[{"src":"\/searching.png","sizes":"256x256"}]
+    },
+
+    {
+        "name":"Login",
+        "short_name":"Login",
+        "description":"Login to restricted area",
+        "url":"/login",
+        "icons":[{"src":"\/login.png","sizes":"256x256"}]
+    }
+  ],
   "display":"standalone",
  "icons": [
   {
