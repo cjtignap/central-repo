@@ -1,5 +1,5 @@
-import logo from '../assets/img/logo.png'
-import syringe from '../assets/img/syringe.jpg';
+// import logo from '../assets/img/logo.png'
+// import syringe from '../assets/img/syringe.jpg';
 import corona from '../assets/img/corona.jpg';
 import {Link} from 'react-router-dom';  
 import {useEffect,useState} from 'react';
@@ -27,7 +27,7 @@ const Home = () => {
           </div>
 
 
-          <div className="temp-container" >
+          {/* <div className="temp-container" >
             <img src={corona} alt="corona" className="corona-pic" />
             
             <h3 style={{'textAlign':'center','paddingTop':'5px'}}>ABOUT COVID-19</h3>
@@ -51,7 +51,7 @@ const Home = () => {
             <p style={{'textIndent':'2em'}}>
               As of 1 February 2022, 10.1 billion doses of COVID‑19 vaccines have been administered worldwide based on official reports from national public health agencies. By December 2020, more than 10 billion vaccine doses had been preordered by countries, with about half of the doses purchased by high-income countries comprising 14% of the world's population.
             </p>
-          </div>
+          </div> */}
 
           <section className="article-list">
             <div className="container">
