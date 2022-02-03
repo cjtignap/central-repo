@@ -109,3 +109,24 @@
         flex-direction:column;
     }
 }
+
+.corona-pic{
+    max-width: 100%
+}
+.syringe{
+    width:350px;
+    max-width: 90%;
+    max-height:234px;
+}
+@media screen and (min-width: 900px) {
+    .covid-vax-container{
+        display: flex;
+    }
+    
+}
+.temp-container{
+    width: 1200px;
+    margin-left:auto;
+    margin-right:auto;
+    max-width:95%;
+}
