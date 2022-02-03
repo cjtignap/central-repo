@@ -1,7 +1,11 @@
 {
- "name": "Vaccination Database",
-  "short_name":"Vax Database",
-  "start_url":"/",
+ "name": "Centralized Vaccination Database",
+  "short_name":"Vaccination Checker",
+  "start_url":"./",
+  "scope":".",
+  "theme-color":"#25aae1",
+  "background-color":"#FFFFFF",
+  
   "display":"standalone",
  "icons": [
   {
@@ -39,6 +43,11 @@
    "sizes": "192x192",
    "type": "image\/png",
    "density": "4.0"
+  },
+  {
+      "src":"\/maskable_icon_x512.png",
+      "sizes":"512x512",
+      "type":"image\/png"
   }
  ]
 }
