@@ -1,6 +1,6 @@
-// import logo from '../assets/img/logo.png'
+import logo from '../assets/img/logo.png'
 // import syringe from '../assets/img/syringe.jpg';
-import corona from '../assets/img/corona.jpg';
+// import corona from '../assets/img/corona.jpg';
 import {Link} from 'react-router-dom';  
 import {useEffect,useState} from 'react';
 import { Image,Transform,CloudinaryContext } from 'cloudinary-react';
